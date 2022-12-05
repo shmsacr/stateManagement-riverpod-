@@ -1,4 +1,4 @@
-name: riverpod
+name: riverpodAPP
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.4
+  riverpod: ^2.1.1
 
 
 
