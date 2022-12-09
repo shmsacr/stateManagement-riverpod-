@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpodAPP/riverpod_manager.dart';
 
 void main() {
   runApp(ProviderScope(child: const MyApp()));
 }
-
-final helloText = Provider((ref) => "HelloWord");
-final counterProvider = ChangeNotifierProvider((ref) => IncrementCounter());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,29 +24,22 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch<IncrementCounter>(counterProvider);
+    //final count = ref.watch<IncrementCounter>(counterProvider);
+    final getData = ref
+        .watch(getDataProvider("https://jsonplaceholder.typicode.com/users"));
+    try {
+      debugPrint("${getData.value?.data.toString()})");
+    } catch (e) {
+      debugPrint("Error:${e.toString()}");
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text("Material App Bar"),
       ),
-      body: Center(child: Text(count.value.toString())),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          count.incCount();
-        },
-        child: Icon(Icons.add),
+      body: Center(
+        child: Text("data"),
       ),
     );
-  }
-}
-
-class IncrementCounter extends ChangeNotifier {
-  int _value = 0;
-  int get value => _value;
-
-  incCount() {
-    _value++;
-    notifyListeners();
   }
 }
